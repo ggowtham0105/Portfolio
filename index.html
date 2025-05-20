@@ -37,10 +37,10 @@
         .nav-link:hover {
             color: #FBBF24;
         }
-        .skill-card, .project-card, .testimonial-card {
+        .skill-card, .project-card, .blog-card, .certificate-card {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        .skill-card:hover, .project-card:hover, .testimonial-card:hover {
+        .skill-card:hover, .project-card:hover, .blog-card:hover, .certificate-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         }
@@ -52,6 +52,12 @@
         }
         .progress-bar {
             transition: width 1s ease-in-out;
+        }
+        .profile-img {
+            max-width: 200px;
+            border-radius: 50%;
+            margin: 0 auto;
+            display: block;
         }
         @media (max-width: 768px) {
             .nav-menu {
@@ -74,6 +80,9 @@
             .timeline-item {
                 padding-left: 40px;
             }
+            .profile-img {
+                max-width: 150px;
+            }
         }
         @media (min-width: 769px) {
             .hamburger {
@@ -86,7 +95,7 @@
     <!-- Navbar -->
     <nav class="fixed top-0 w-full bg-gray-900 bg-opacity-95 z-50 py-4">
         <div class="container mx-auto px-4 flex justify-between items-center">
-            <h1 class="text-2xl font-bold">[Your Name]</h1>
+            <h1 class="text-2xl font-bold">Gowtham Raj</h1>
             <div class="flex items-center gap-4">
                 <button id="theme-toggle" class="text-xl" aria-label="Toggle theme">🌙</button>
                 <button class="hamburger text-2xl md:hidden" aria-label="Toggle menu">☰</button>
@@ -94,10 +103,9 @@
                     <a href="#home" class="nav-link">Home</a>
                     <a href="#about" class="nav-link">About</a>
                     <a href="#skills" class="nav-link">Skills</a>
-                    <a href="#experience" class="nav-link">Experience</a>
                     <a href="#projects" class="nav-link">Projects</a>
-                    <a href="#testimonials" class="nav-link">Testimonials</a>
                     <a href="#blog" class="nav-link">Blog</a>
+                    <a href="#certificates" class="nav-link">Certificates</a>
                     <a href="#contact" class="nav-link">Contact</a>
                 </div>
             </div>
@@ -107,11 +115,11 @@
     <!-- Home Section -->
     <section id="home" class="section bg-gradient-to-b from-gray-900 to-gray-800">
         <div class="text-center max-w-3xl mx-auto">
-            <h2 class="text-4xl md:text-6xl font-bold mb-4"><span class="typing-text">Hey, I'm [Your Name]</span></h2>
+            <h2 class="text-4xl md:text-6xl font-bold mb-4"><span class="typing-text">Hey, I'm Gowtham Raj</span></h2>
             <p class="text-xl md:text-2xl mb-6 animate-text">A Web Developer crafting seamless digital experiences</p>
             <div class="flex justify-center gap-4">
-                <a href="#contact" class="inline-block bg-yellow-500 text-black py-2 px-6 rounded-full hover:bg-yellow-400 transition animate-text">Let's Connect</a>
-                <a href="/resume.pdf" download class="inline-block bg-gray-700 text-white py-2 px-6 rounded-full hover:bg-gray-600 transition animate-text">Download Resume</a>
+                <a href="gowthamgowtham2005@gmail.com" class="inline-block bg-yellow-500 text-black py-2 px-6 rounded-full hover:bg-yellow-400 transition animate-text">Let's Connect</a>
+                <a href="Resume.pdf" download="Gowtham_Raj_Resume.pdf" id="resume-download" class="inline-block bg-gray-700 text-white py-2 px-6 rounded-full hover:bg-gray-600 transition animate-text">Download Resume</a>
             </div>
         </div>
     </section>
@@ -120,7 +128,8 @@
     <section id="about" class="section bg-gray-800">
         <div class="container mx-auto px-4 max-w-3xl">
             <h2 class="text-3xl md:text-4xl font-bold mb-6 text-center animate-section">About Me</h2>
-            <p class="text-lg animate-section">I'm a passionate developer with 5+ years of experience in building responsive and interactive web applications. Specializing in JavaScript frameworks and UI/UX design, I create solutions that are both functional and visually appealing. When I'm not coding, you can find me exploring new tech trends or sharing knowledge through blog posts.</p>
+            <p class="text-lg mb-6 animate-section">I am a second-year student pursuing a degree in Computer Science and Business Systems (CSBS). With a passion for technology and innovation, I am dedicated to developing my skills as a Web Developer. I enjoy learning new technologies, solving complex problems, and building dynamic websites that combine both functionality and creativity.</p>
+            <img src="01.jpg" alt="Gowtham Raj" class="profile-img animate-section">
         </div>
     </section>
 
@@ -128,74 +137,45 @@
     <section id="skills" class="section bg-gray-900">
         <div class="container mx-auto px-4 max-w-3xl">
             <h2 class="text-3xl md:text-4xl font-bold mb-6 text-center animate-section">My Skills</h2>
-            <div class="space-y-4 animate-section">
-                <div>
+            <div class="space-y-6 animate-section">
+                <div class="skill-card">
                     <span class="block text-sm mb-1">HTML</span>
                     <div class="bg-gray-700 h-2 rounded-full">
                         <div class="progress-bar bg-yellow-500 h-2 rounded-full" style="width: 90%"></div>
                     </div>
                 </div>
-                <div>
+                <div class="skill-card">
                     <span class="block text-sm mb-1">CSS</span>
                     <div class="bg-gray-700 h-2 rounded-full">
                         <div class="progress-bar bg-yellow-500 h-2 rounded-full" style="width: 85%"></div>
                     </div>
                 </div>
-                <div>
+                <div class="skill-card">
                     <span class="block text-sm mb-1">JavaScript</span>
                     <div class="bg-gray-700 h-2 rounded-full">
                         <div class="progress-bar bg-yellow-500 h-2 rounded-full" style="width: 80%"></div>
                     </div>
                 </div>
-                <div>
-                    <span class="block text-sm mb-1">React</span>
+                <div class="skill-card">
+                    <span class="block text-sm mb-1">Python</span>
                     <div class="bg-gray-700 h-2 rounded-full">
                         <div class="progress-bar bg-yellow-500 h-2 rounded-full" style="width: 75%"></div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Experience Section -->
-    <section id="experience" class="section bg-gray-800">
-        <div class="container mx-auto px-4 max-w-3xl">
-            <h2 class="text-3xl md:text-4xl font-bold mb-6 text-center animate-section">Experience</h2>
-            <div class="timeline relative animate-section">
-                <div class="timeline-item mb-8">
-                    <h3 class="text-xl font-semibold">Senior Developer, Tech Corp</h3>
-                    <p class="text-sm text-gray-400">Jan 2023 - Present</p>
-                    <p>Led a team of developers to build scalable web applications using React and Node.js.</p>
+                <div class="skill-card">
+                    <span class="block text-sm mb-1">React</span>
+                    <div class="bg-gray-700 h-2 rounded-full">
+                        <div class="progress-bar bg-yellow-500 h-2 rounded-full" style="width: 70%"></div>
+                    </div>
                 </div>
-                <div class="timeline-item mb-8">
-                    <h3 class="text-xl font-semibold">Frontend Developer, Web Solutions</h3>
-                    <p class="text-sm text-gray-400">Jun 2020 - Dec 2022</p>
-                    <p>Designed and implemented responsive UI components for client projects.</p>
+                <div class="skill-card">
+                    <span class="block text-sm mb-1">MySQL</span>
+                    <div class="bg-gray-700 h-2 rounded-full">
+                        <div class="progress-bar bg-yellow-500 h-2 rounded-full" style="width: 60%"></div>
+                    </div>
                 </div>
             </div>
         </div>
-        <style>
-            .timeline::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                bottom: 0;
-                left: 50%;
-                width: 4px;
-                background: #FBBF24;
-                transform: translateX(-50%);
-            }
-            .timeline-item::before {
-                content: '';
-                position: absolute;
-                left: 50%;
-                width: 16px;
-                height: 16px;
-                background: #FBBF24;
-                border-radius: 50%;
-                transform: translateX(-50%);
-            }
-        </style>
     </section>
 
     <!-- Projects Section -->
@@ -204,39 +184,22 @@
             <h2 class="text-3xl md:text-4xl font-bold mb-6 text-center animate-section">My Projects</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 <div class="project-card bg-gray-700 p-6 rounded-lg animate-section">
-                    <img src="https://via.placeholder.com/300x200" alt="Project 1" class="project-img w-full h-40 object-cover rounded-lg mb-4">
+                    <img src="image1.jpg" alt="Project 1" class="project-img w-full h-40 object-cover rounded-lg mb-4">
                     <h3 class="text-xl font-semibold mb-2">Project 1</h3>
-                    <p>A dynamic web app built with React and Tailwind CSS.</p>
+                    <p>Finance Tracker (using Python).</p>
                     <a href="#" class="text-yellow-500 hover:underline">View Project</a>
                 </div>
                 <div class="project-card bg-gray-700 p-6 rounded-lg animate-section">
-                    <img src="https://via.placeholder.com/300x200" alt="Project 2" class="project-img w-full h-40 object-cover rounded-lg mb-4">
+                    <img src="image2.jpg" alt="Project 2" class="project-img w-full h-40 object-cover rounded-lg mb-4">
                     <h3 class="text-xl font-semibold mb-2">Project 2</h3>
-                    <p>An e-commerce platform with secure payment integration.</p>
+                    <p>Website Blocker (using Python).</p>
                     <a href="#" class="text-yellow-500 hover:underline">View Project</a>
                 </div>
                 <div class="project-card bg-gray-700 p-6 rounded-lg animate-section">
-                    <img src="https://via.placeholder.com/300x200" alt="Project 3" class="project-img w-full h-40 object-cover rounded-lg mb-4">
+                    <img src="image3.png" alt="Project 3" class="project-img w-full h-40 object-cover rounded-lg mb-4">
                     <h3 class="text-xl font-semibold mb-2">Project 3</h3>
                     <p>A mobile-first portfolio with smooth animations.</p>
                     <a href="#" class="text-yellow-500 hover:underline">View Project</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="section bg-gray-800">
-        <div class="container mx-auto px-4 max-w-5xl">
-            <h2 class="text-3xl md:text-4xl font-bold mb-6 text-center animate-section">Testimonials</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="testimonial-card bg-gray-700 p-6 rounded-lg animate-section">
-                    <p class="italic">"[Your Name] delivered an outstanding web app that exceeded our expectations!"</p>
-                    <p class="text-sm text-gray-400 mt-2">– Jane Doe, CEO</p>
-                </div>
-                <div class="testimonial-card bg-gray-700 p-6 rounded-lg animate-section">
-                    <p class="italic">"A pleasure to work with, highly skilled and professional."</p>
-                    <p class="text-sm text-gray-400 mt-2">– John Smith, CTO</p>
                 </div>
             </div>
         </div>
@@ -246,26 +209,56 @@
     <section id="blog" class="section bg-gray-900">
         <div class="container mx-auto px-4 max-w-5xl">
             <h2 class="text-3xl md:text-4xl font-bold mb-6 text-center animate-section">Blog Highlights</h2>
+            <p class="text-lg mb-6 text-center animate-section">Focus on the topics you're currently learning, like web development, programming languages, or new projects you’ve been working on.</p>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="blog-card bg-gray-700 p-6 rounded-lg animate-section">
-                    <h3 class="text-xl font-semibold mb-2">Mastering React Hooks</h3>
-                    <p>A deep dive into useState and useEffect for better state management.</p>
+                    <h3 class="text-xl font-semibold mb-2">Fail2Ban Security Project – Protecting Servers with Python Automation</h3>
+                    <p>Fail2Ban is a log-monitoring security tool that helps protect Linux servers from brute-force attacks, especially on services like SSH, FTP, and web servers. It scans log files and automatically bans IPs showing malicious behavior (e.g., too many failed login attempts).</p>
                     <a href="#" class="text-yellow-500 hover:underline">Read More</a>
                 </div>
                 <div class="blog-card bg-gray-700 p-6 rounded-lg animate-section">
-                    <h3 class="text-xl font-semibold mb-2">CSS Grid vs. Flexbox</h3>
-                    <p>When to use each layout system for responsive designs.</p>
+                    <h3 class="text-xl font-semibold mb-2">Launching My First Portfolio Website</h3>
+                    <p>This post is a quick walkthrough of how I built and launched my first personal portfolio website. It showcases my projects (like the Finance Tracker and Website Blocker), skills, certifications, and more – all in one place.</p>
                     <a href="#" class="text-yellow-500 hover:underline">Read More</a>
                 </div>
             </div>
         </div>
     </section>
 
+<!-- Certificates Section -->
+<section id="certificates" class="section bg-gray-800">
+    <div class="container mx-auto px-4 max-w-5xl">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6 text-center animate-section">My Certificates</h2>
+        <p class="text-lg mb-6 text-center animate-section">Explore my certifications in web development, programming, and more. View my full collection or download my resume for a complete overview.</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="certificate-card bg-gray-700 p-6 rounded-lg animate-section">
+                <h3 class="text-xl font-semibold mb-2">Python - Guvi</h3>
+                <p>Gained hands-on experience in Python fundamentals, control flow, functions, and data structures.</p>
+                <a href="Certificates/GuviCertification - Python.png" target="_blank" class="text-yellow-500 hover:underline">View Certificate</a>
+            </div>
+            <div class="certificate-card bg-gray-700 p-6 rounded-lg animate-section">
+                <h3 class="text-xl font-semibold mb-2">Java</h3>
+                <p>Completed a foundational course in Java programming, focusing on the core concepts required for software development.</p>
+                <a href="Certificates/Coursera Java (1).pdf" target="_blank" class="text-yellow-500 hover:underline">View Certificate</a>
+            </div>
+            <div class="certificate-card bg-gray-700 p-6 rounded-lg animate-section">
+                <h3 class="text-xl font-semibold mb-2">Resume</h3>
+                <p>Download my resume for a detailed overview of my skills and achievements.</p>
+                <a href="Resume.pdf"download="Gowtham_Raj_Resume.pdf" id="certificate-resume-download" class="text-yellow-500 hover:underline">Download Resume</a>
+            </div>
+        </div>
+        <div class="text-center mt-6">
+            <a href="certificate.html" class="inline-block bg-yellow-500 text-black py-2 px-6 rounded-full hover:bg-yellow-400 transition animate-section">View All Certificates</a>
+        </div>
+    </div>
+</section>
+
+
     <!-- Contact Section -->
     <section id="contact" class="section bg-gray-800">
         <div class="container mx-auto px-4 max-w-3xl">
             <h2 class="text-3xl md:text-4xl font-bold mb-6 text-center animate-section">Get in Touch</h2>
-            <p class="text-lg mb-6 text-center animate-section">I'm open to new opportunities and collaborations. Drop me a message!</p>
+            <p class="text-lg mb-6 text-center animate-section">If you'd like to collaborate on a project, ask questions, or just connect, feel free to reach out!</p>
             <div class="animate-section">
                 <form id="contact-form" class="space-y-4 max-w-md mx-auto">
                     <input type="text" name="name" placeholder="Your Name" class="w-full p-2 rounded-lg bg-gray-700 text-white" required>
@@ -275,9 +268,9 @@
                 </form>
             </div>
             <div class="flex justify-center gap-4 mt-6 animate-section">
-                <a href="mailto:your.email@example.com" class="text-yellow-500 hover:underline">Email</a>
-                <a href="https://linkedin.com" target="_blank" class="text-yellow-500 hover:underline">LinkedIn</a>
-                <a href="https://github.com" target="_blank" class="text-yellow-500 hover:underline">GitHub</a>
+                <a href="mailto:gowthamgowtham2005@gmail.com" class="text-yellow-500 hover:underline">Email</a>
+                <a href="https://www.linkedin.com/in/gowtham-raj-0308bb2b1?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" class="text-yellow-500 hover:underline">LinkedIn</a>
+                <a href="https://github.com/ggowtham0105" target="_blank" class="text-yellow-500 hover:underline">GitHub</a>
             </div>
         </div>
     </section>
@@ -286,11 +279,12 @@
     <footer class="bg-gray-900 py-6">
         <div class="container mx-auto px-4 text-center">
             <div class="flex justify-center gap-4 mb-4">
-                <a href="https://linkedin.com" target="_blank" class="text-yellow-500 hover:text-yellow-400">LinkedIn</a>
-                <a href="https://github.com" target="_blank" class="text-yellow-500 hover:text-yellow-400">GitHub</a>
-                <a href="https://twitter.com" target="_blank" class="text-yellow-500 hover:text-yellow-400">Twitter</a>
+                <a href="https://www.linkedin.com/in/gowtham-raj-0308bb2b1?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" class="text-yellow-500 hover:underline">LinkedIn</a>
+                <a href="https://github.com/ggowtham0105" target="_blank" class="text-yellow-500 hover:underline">GitHub</a>
+                <a href="https://www.instagram.com/gautham_k_l8_?igsh=MWhhbWt3bTh4a3dxMQ==" target="_blank" class="text-yellow-500 hover:underline">Instagram</a>
+                <a href="Resume.pdf" download="Gowtham_Raj_Resume.pdf" id="footer-resume-download" class="text-yellow-500 hover:underline">Download Resume</a>
             </div>
-            <p>&copy; 2025 [Your Name]. All rights reserved.</p>
+            <p>© 2025 Gowtham Raj. All rights reserved.</p>
         </div>
     </footer>
 
@@ -334,12 +328,29 @@
             e.target.reset();
         });
 
+        // Resume Download Error Handling
+        const resumeLinks = document.querySelectorAll('#resume-download, #footer-resume-download, #certificate-resume-download');
+        resumeLinks.forEach(link => {
+            link.addEventListener('click', async (e) => {
+                try {
+                    const response = await fetch(link.getAttribute('href'));
+                    if (!response.ok) {
+                        e.preventDefault();
+                        alert('Sorry, the resume file could not be found. Please contact me at gowthamgowtham2005@gmail.com.');
+                    }
+                } catch (error) {
+                    e.preventDefault();
+                    alert('Sorry, the resume file could not be found. Please contact me at gowthamgowtham2005@gmail.com.');
+                }
+            });
+        });
+
         // GSAP Animations
         gsap.registerPlugin(ScrollTrigger, TextPlugin);
 
         // Typing Effect for Home
         gsap.to('.typing-text', {
-            text: "Hey, I'm [Your Name]",
+            text: "Hey, I'm Gowtham Raj",
             duration: 2,
             ease: 'none',
             repeat: 0
@@ -369,8 +380,8 @@
             });
         });
 
-        // Staggered animation for cards
-        gsap.utils.toArray('.skill-card, .project-card, .testimonial-card, .blog-card').forEach((card, i) => {
+        // Staggered animation for skill cards
+        gsap.utils.toArray('.skill-card').forEach((card, i) => {
             gsap.from(card, {
                 opacity: 0,
                 y: 20,
@@ -380,6 +391,39 @@
                     trigger: card,
                     start: 'top 85%',
                     toggleActions: 'play none none none'
+                }
+            });
+        });
+
+        // Staggered animation for project, blog, and certificate cards with hide after 2 seconds
+        gsap.utils.toArray('.project-card, .blog-card, .certificate-card').forEach((card, i) => {
+            gsap.fromTo(card, {
+                opacity: 0,
+                y: 20
+            }, {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                delay: i * 0.1,
+                scrollTrigger: {
+                    trigger: card,
+                    start: 'top 85%',
+                    end: 'bottom 20%',
+                    toggleActions: 'play none none reverse',
+                    onLeave: () => {
+                        gsap.to(card, {
+                            opacity: 0,
+                            duration: 0.5,
+                            delay: 2
+                        });
+                    },
+                    onLeaveBack: () => {
+                        gsap.to(card, {
+                            opacity: 0,
+                            duration: 0.5,
+                            delay: 2
+                        });
+                    }
                 }
             });
         });
