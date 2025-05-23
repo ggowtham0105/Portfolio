@@ -147,7 +147,7 @@
         <div class="certificate-card bg-gray-700 p-6 rounded-lg animate-section">
           <img src="Certificates/img4.png" alt="Resume" class="certificate-img w-full h-40 object-cover rounded mb-4">
           <h3 class="text-xl font-semibold mb-2">Resume</h3>
-          <a href="Resume.pdf"download="Gowtham_Raj_Resume.pdf" id="certificate-resume-download" class="text-yellow-500 hover:underline">Download Resume</a>
+          <a href="Certificates/Resume.pdf"download="Gowtham_Raj_Resume.pdf" id="certificate-resume-download" class="text-yellow-500 hover:underline">Download Resume</a>
         </div>
       </div>
       <div class="text-center mt-10">
@@ -175,6 +175,24 @@
     themeToggle.addEventListener('click', () => {
       document.body.classList.toggle('light-mode');
       themeToggle.textContent = document.body.classList.contains('light-mode') ? '☀️' : '🌙';
+      // Persist theme preference in localStorage
+      if (document.body.classList.contains('light-mode')) {
+      localStorage.setItem('theme', 'light');
+      } else {
+      localStorage.setItem('theme', 'dark');
+      }
+    });
+
+    // On page load, set theme from localStorage
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'light') {
+      document.body.classList.add('light-mode');
+      themeToggle.textContent = '☀️';
+      } else {
+      document.body.classList.remove('light-mode');
+      themeToggle.textContent = '🌙';
+      }
     });
 
     // Hamburger Menu Toggle
