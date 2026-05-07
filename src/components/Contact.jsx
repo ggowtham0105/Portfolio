@@ -125,7 +125,7 @@ const Contact = () => {
                   <a href="https://github.com/ggowtham0105" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center text-white hover:bg-primary hover:text-white transition-all transform hover:-translate-y-1">
                     <FaGithub />
                   </a>
-                  <a href="www.linkedin.com/in/bgowthamraj08" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center text-white hover:bg-[#0A66C2] hover:text-white transition-all transform hover:-translate-y-1">
+                  <a href="https://www.linkedin.com/in/bgowthamraj08" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center text-white hover:bg-[#0A66C2] hover:text-white transition-all transform hover:-translate-y-1">
                     <FaLinkedin />
                   </a>
                 </div>

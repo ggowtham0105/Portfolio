@@ -61,13 +61,13 @@ const Hero = () => {
             </div>
 
             <div className="flex items-center justify-center md:justify-start gap-6">
-              <a href="https://github.com" target="_blank" rel="noreferrer" className="text-text-light/60 hover:text-primary text-2xl transition-colors duration-300">
+              <a href="https://github.com/ggowtham0105" target="_blank" rel="noreferrer" className="text-text-light/60 hover:text-primary text-2xl transition-colors duration-300">
                 <FaGithub />
               </a>
-              <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="text-text-light/60 hover:text-primary text-2xl transition-colors duration-300">
+              <a href="https://www.linkedin.com/in/bgowthamraj08" target="_blank" rel="noreferrer" className="text-text-light/60 hover:text-primary text-2xl transition-colors duration-300">
                 <FaLinkedin />
               </a>
-              <a href="mailto:gowtham@example.com" className="text-text-light/60 hover:text-primary text-2xl transition-colors duration-300">
+              <a href="mailto:gowthamrajb.dev@gmail.com" className="text-text-light/60 hover:text-primary text-2xl transition-colors duration-300">
                 <FaEnvelope />
               </a>
             </div>
