@@ -52,6 +52,14 @@ const Certifications = () => {
       link: "/certificates/BA.pdf"
     },
     {
+      title: "Full Stack Development",
+      provider: "Crescent InfoTech",
+      date: "2026",
+      skills: "Frontend, Backend, Web Development",
+      image: "https://cdn-icons-png.flaticon.com/512/1336/1336494.png", // Web Dev logo
+      link: "/certificates/Full StacK Developement.jpg"
+    },
+    {
       title: "IoT Cloud Engineer Virtual Internship",
       provider: "Certification",
       date: "2026",
@@ -67,7 +75,16 @@ const Certifications = () => {
       skills: "Artificial Intelligence, Machine Learning Concepts",
       image: "https://cdn-icons-png.flaticon.com/512/2103/2103141.png", // AI logo
       link: "/certificates/Introduction to Artificial Intelligence (AI).pdf"
-    }
+    },
+    {
+      title: "AWS Cloud Computing",
+      provider: "Amazon Web Services (AWS)",
+      date: "2026",
+      skills: "Cloud Architecture, AWS Services, Storage",
+      image: "https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg",
+      link: "/certificates/AWS Cloud Computing.pdf"
+    },
+
   ];
 
   return (
