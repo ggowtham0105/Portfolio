@@ -6,23 +6,31 @@ const Certifications = () => {
     {
       title: "Python Certification",
       provider: "GUVI",
-      date: "2024",
+      date: "2023",
       skills: "Python, Programming",
       image: "https://thfvnext.bing.com/th/id/OIP.1GKFHuKveAL74MsIYRLktwHaDN?w=327&h=151&c=7&r=0&o=7&cb=thfvnext&dpr=1.4&pid=1.7&rm=3",
       link: "/certificates/GuviCertification - Python.png"
     },
     {
-      title: "Software Engineering Intern",
+      title: "Network | Network Security Intern",
       provider: "Prompt Infotech",
-      date: "2025",
-      skills: "Software Development, Engineering",
+      date: "2024",
+      skills: "Network Security, Computer Networking",
       image: "https://cdn-icons-png.flaticon.com/512/603/603148.png", // Generic logo
       link: "/certificates/Prompt infotech intern.pdf"
     },
     {
+      title: "Java Certification",
+      provider: "Coursera",
+      date: "2024",
+      skills: "Java, Object-Oriented Programming",
+      image: "https://cdn-icons-png.flaticon.com/512/226/226777.png", // Java logo
+      link: "/certificates/Coursera_java.pdf"
+    },
+    {
       title: "Data Analytics",
       provider: "Certification",
-      date: "2024",
+      date: "2025",
       skills: "Data Analysis, Insights",
       image: "https://cdn-icons-png.flaticon.com/512/1541/1541433.png", // Generic analytics logo
       link: "/certificates/Data_analytics.pdf"
@@ -30,7 +38,7 @@ const Certifications = () => {
     {
       title: "SkillsBuild Completion",
       provider: "IBM SkillsBuild",
-      date: "2024",
+      date: "2025",
       skills: "Technology, Professional Skills",
       image: "https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg",
       link: "/certificates/Completion Certificate _ SkillsBuild.pdf"
@@ -38,10 +46,27 @@ const Certifications = () => {
     {
       title: "Business Analytics",
       provider: "Certification",
-      date: "2024",
+      date: "2025",
       skills: "Business Intelligence, Analytics",
       image: "https://cdn-icons-png.flaticon.com/512/2822/2822552.png", // Generic BA logo
       link: "/certificates/BA.pdf"
+    },
+    {
+      title: "IoT Cloud Engineer Virtual Internship",
+      provider: "Certification",
+      date: "2026",
+      skills: "Cloud Computing, Internet of Things (IoT)",
+      image: "https://cdn-icons-png.flaticon.com/512/4341/4341025.png", // IoT Cloud logo
+      link: "/certificates/IoT Cloud Engineer Virtual Internship.pdf"
+    },
+   
+    {
+      title: "Introduction to Artificial Intelligence (AI)",
+      provider: "Coursera",
+      date: "2026",
+      skills: "Artificial Intelligence, Machine Learning Concepts",
+      image: "https://cdn-icons-png.flaticon.com/512/2103/2103141.png", // AI logo
+      link: "/certificates/Introduction to Artificial Intelligence (AI).pdf"
     }
   ];
 
