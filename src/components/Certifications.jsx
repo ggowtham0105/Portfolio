@@ -84,7 +84,14 @@ const Certifications = () => {
       image: "https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg",
       link: "/certificates/AWS Cloud Computing.pdf"
     },
-
+    {
+      title: "SQL Basic",
+      provider: "HackerRank",
+      date: "2026",
+      skills: "SQL, Database Management",
+      image: "https://cdn-icons-png.flaticon.com/512/2772/2772128.png",
+      link: "/certificates/sql_basic certificate.pdf"
+    }
   ];
 
   return (
