@@ -28,8 +28,8 @@ const Certifications = () => {
       link: "/certificates/Coursera_java.pdf"
     },
     {
-      title: "Data Analytics",
-      provider: "Certification",
+      title: "GenAI	Powered	Data	Analytics	",
+      provider: "TATA Forage",
       date: "2025",
       skills: "Data Analysis, Insights",
       image: "https://cdn-icons-png.flaticon.com/512/1541/1541433.png", // Generic analytics logo
@@ -45,14 +45,14 @@ const Certifications = () => {
     },
     {
       title: "Business Analytics",
-      provider: "Certification",
+      provider: "Prompt Infotech",
       date: "2025",
       skills: "Business Intelligence, Analytics",
       image: "https://cdn-icons-png.flaticon.com/512/2822/2822552.png", // Generic BA logo
       link: "/certificates/BA.pdf"
     },
     {
-      title: "Full Stack Development",
+      title: "Full Stack Development Intern",
       provider: "Crescent InfoTech",
       date: "2026",
       skills: "Frontend, Backend, Web Development",
@@ -61,7 +61,7 @@ const Certifications = () => {
     },
     {
       title: "IoT Cloud Engineer Virtual Internship",
-      provider: "Certification",
+      provider: "EduSkills",
       date: "2026",
       skills: "Cloud Computing, Internet of Things (IoT)",
       image: "https://cdn-icons-png.flaticon.com/512/4341/4341025.png", // IoT Cloud logo
