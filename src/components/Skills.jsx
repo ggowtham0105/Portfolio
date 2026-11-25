@@ -1,103 +1,104 @@
-import { motion } from 'framer-motion';
-import { 
-  FaPython, FaLinux, FaAws, FaGitAlt, FaGithub, FaChartBar
+import {
+  FaPython,
+  FaJs,
+  FaNodeJs,
+  FaHtml5,
+  FaCss3Alt,
+  FaGitAlt,
+  FaChartBar,
+  FaFileExcel,
 } from 'react-icons/fa';
-import { SiMysql, SiApacheairflow, SiDatabricks, SiApachespark } from 'react-icons/si';
+import {
+  SiMysql,
+  SiTypescript,
+  SiTailwindcss,
+  SiPandas,
+  SiNumpy,
+  SiFirebase,
+  SiSupabase,
+} from 'react-icons/si';
+import { usePortfolio } from '../context/portfolioContext';
+import Reveal from './Reveal';
+
+function getSkillIcon(name) {
+  const key = name.trim().toLowerCase();
+  if (key === 'python') return <FaPython aria-hidden="true" />;
+  if (key === 'sql' || key === 'mysql') return <SiMysql aria-hidden="true" />;
+  if (key === 'javascript (es6+)') return <FaJs aria-hidden="true" />;
+  if (key === 'typescript') return <SiTypescript aria-hidden="true" />;
+  if (key === 'node.js') return <FaNodeJs aria-hidden="true" />;
+  if (key === 'html') return <FaHtml5 aria-hidden="true" />;
+  if (key === 'css') return <FaCss3Alt aria-hidden="true" />;
+  if (key === 'tailwind css') return <SiTailwindcss aria-hidden="true" />;
+  if (key === 'excel') return <FaFileExcel aria-hidden="true" />;
+  if (key === 'pandas') return <SiPandas aria-hidden="true" />;
+  if (key === 'numpy') return <SiNumpy aria-hidden="true" />;
+  if (key === 'power bi') return <FaChartBar aria-hidden="true" />;
+  if (key === 'git/github') return <FaGitAlt aria-hidden="true" />;
+  if (key === 'firebase') return <SiFirebase aria-hidden="true" />;
+  if (key === 'supabase') return <SiSupabase aria-hidden="true" />;
+  return null;
+}
 
 const Skills = () => {
-  const skillCategories = [
-    {
-      title: "Programming & OS",
-      skills: [
-        { name: "Python", icon: <FaPython className="text-[#3776AB]" /> },
-        { name: "SQL", icon: <SiMysql className="text-[#4479A1]" /> },
-        { name: "Linux", icon: <FaLinux className="text-white" /> },
-      ]
-    },
-    {
-      title: "Data Engineering",
-      skills: [
-        { name: "ETL/ELT Pipelines", icon: <span className="text-2xl">🔄</span> },
-        { name: "PySpark", icon: <SiApachespark className="text-[#E25A1C]" /> },
-        { name: "Apache Airflow", icon: <SiApacheairflow className="text-[#017CEE]" /> },
-        { name: "Databricks", icon: <SiDatabricks className="text-[#FF3621]" /> },
-      ]
-    },
-    {
-      title: "Cloud & AWS",
-      skills: [
-        { name: "AWS S3", icon: <FaAws className="text-[#FF9900]" /> },
-        { name: "AWS Glue", icon: <FaAws className="text-[#FF9900]" /> },
-        { name: "AWS Lambda", icon: <FaAws className="text-[#FF9900]" /> },
-        { name: "AWS Athena", icon: <FaAws className="text-[#FF9900]" /> },
-        { name: "AWS Redshift", icon: <FaAws className="text-[#FF9900]" /> },
-      ]
-    },
-    {
-      title: "Tools",
-      skills: [
-        { name: "Power BI", icon: <FaChartBar className="text-[#F2C811]" /> },
-        { name: "Git", icon: <FaGitAlt className="text-[#F05032]" /> },
-        { name: "GitHub", icon: <FaGithub className="text-white" /> },
-      ]
-    }
-  ];
+  const { skills } = usePortfolio();
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
+  const grouped = [];
+  const groupMap = new Map();
+  for (const item of skills) {
+    const groupTitle = item.group_name || 'Other';
+    if (!groupMap.has(groupTitle)) {
+      const entry = { title: groupTitle, items: [] };
+      groupMap.set(groupTitle, entry);
+      grouped.push(entry);
     }
-  };
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1
-    }
-  };
+    groupMap.get(groupTitle).items.push(item);
+  }
 
   return (
-    <section id="skills" className="py-20 relative bg-secondary/10">
+    <section
+      id="skills"
+      aria-labelledby="skills-heading"
+      className="py-16 md:py-20 border-t border-border-subtle"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Skills & <span className="text-primary">Technologies</span></h2>
-          <div className="w-20 h-1 bg-primary mx-auto rounded-full"></div>
+        <div className="text-center mb-12">
+          <Reveal>
+            <h2 id="skills-heading" className="text-3xl md:text-4xl font-bold text-heading mb-3">
+              Skills &amp; Technologies
+            </h2>
+          </Reveal>
+          <Reveal variant="bar" delay={80}>
+            <div className="heading-accent-bar" aria-hidden="true" />
+          </Reveal>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {skillCategories.map((category, idx) => (
-            <motion.div 
-              key={idx}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
-              variants={containerVariants}
-              className="glass-card p-8"
-            >
-              <h3 className="text-xl font-bold text-accent mb-6">{category.title}</h3>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                {category.skills.map((skill, sIdx) => (
-                  <motion.div 
-                    key={sIdx}
-                    variants={itemVariants}
-                    whileHover={{ y: -5, scale: 1.05 }}
-                    className="flex flex-col items-center justify-center p-4 bg-bg-dark/50 rounded-xl border border-white/5 hover:border-primary/50 transition-all group"
-                  >
-                    <div className="text-4xl mb-3 group-hover:scale-110 transition-transform">
-                      {skill.icon}
-                    </div>
-                    <span className="text-sm text-center font-medium text-text-light/80 group-hover:text-primary transition-colors">
-                      {skill.name}
-                    </span>
-                  </motion.div>
-                ))}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
+          {grouped.map((group, groupIdx) => (
+            <Reveal key={group.title} delay={groupIdx * 70} className="h-full">
+              <div className="surface-card p-6 sm:p-7 flex flex-col h-full">
+                <h3 className="text-lg font-bold text-heading mb-4">{group.title}</h3>
+                <ul className="flex flex-wrap gap-2.5 content-start flex-1">
+                  {group.items.map((skill, chipIdx) => {
+                    const icon = getSkillIcon(skill.name);
+                    return (
+                      <li key={skill.id || `${group.title}-${skill.name}`}>
+                        <Reveal delay={chipIdx * 70}>
+                          <div className="group inline-flex items-center gap-2 px-3 py-2 bg-canvas rounded-lg border border-border-subtle hover:border-accent transition-colors">
+                            {icon && (
+                              <span className="text-base text-muted group-hover:text-heading transition-colors">
+                                {icon}
+                              </span>
+                            )}
+                            <span className="text-sm font-medium text-heading">{skill.name}</span>
+                          </div>
+                        </Reveal>
+                      </li>
+                    );
+                  })}
+                </ul>
               </div>
-            </motion.div>
+            </Reveal>
           ))}
         </div>
       </div>

@@ -1,103 +1,150 @@
-import { useState, useEffect } from 'react';
-import { Link } from 'react-scroll';
-import { Menu, X } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
 
-const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
+const NAV_LINKS = [
+  { name: 'Skills', id: 'skills', href: '#skills' },
+  { name: 'Projects', id: 'projects', href: '#projects' },
+  { name: 'Experience', id: 'experience', href: '#experience' },
+  { name: 'Education', id: 'education', href: '#education' },
+  { name: 'Certifications', id: 'certifications', href: '#certifications' },
+  { name: 'Contact', id: 'contact', href: '#contact' },
+];
 
-  const navLinks = [
-    { name: 'Home', to: 'home' },
-    { name: 'About', to: 'about' },
-    { name: 'Skills', to: 'skills' },
-    { name: 'Experience', to: 'experience' },
-    { name: 'Projects', to: 'projects' },
-    { name: 'Certifications', to: 'certifications' },
-    { name: 'Contact', to: 'contact' },
-  ];
+const Navbar = ({ onOpenAdmin }) => {
+  const [activeId, setActiveId] = useState('');
+  const progressBarRef = useRef(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-      
+    let rafId = 0;
+
+    const updateProgress = () => {
+      rafId = 0;
       const totalScroll = document.documentElement.scrollTop;
-      const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scroll = `${totalScroll / windowHeight}`;
-      setScrollProgress(scroll);
+      const windowHeight =
+        document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const progress = windowHeight > 0 ? Math.min(1, Math.max(0, totalScroll / windowHeight)) : 0;
+      if (progressBarRef.current) {
+        progressBarRef.current.style.transform = `scaleX(${progress})`;
+      }
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+
+    const handleScroll = () => {
+      if (!rafId) {
+        rafId = window.requestAnimationFrame(updateProgress);
+      }
+    };
+
+    updateProgress();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+      if (rafId) window.cancelAnimationFrame(rafId);
+    };
+  }, []);
+
+  useEffect(() => {
+    const sections = NAV_LINKS.map((link) => document.getElementById(link.id)).filter(Boolean);
+    if (sections.length === 0) return undefined;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+        if (visible.length > 0) {
+          setActiveId(visible[0].target.id);
+        }
+      },
+      { rootMargin: '-25% 0px -60% 0px', threshold: 0 }
+    );
+
+    sections.forEach((sec) => observer.observe(sec));
+    return () => observer.disconnect();
   }, []);
 
   return (
-    <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-bg-dark/80 backdrop-blur-md border-b border-white/10 shadow-lg py-3' : 'bg-transparent py-5'}`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between">
-          <div className="flex-shrink-0">
-            <Link to="home" smooth={true} duration={500} className="cursor-pointer">
-              <span className="text-2xl font-space font-bold text-gradient">Gowtham Raj B</span>
-            </Link>
+    <>
+      {/* Fixed 2px scroll progress bar at top of viewport */}
+      <div
+        ref={progressBarRef}
+        aria-hidden="true"
+        className="fixed top-0 left-0 right-0 h-[2px] bg-accent z-[60] pointer-events-none"
+        style={{ transform: 'scaleX(0)', transformOrigin: 'left' }}
+      />
+
+      <header className="sticky top-0 z-50 bg-canvas border-b border-border-subtle">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between gap-4 py-3.5">
+            <a
+              href="#home"
+              onDoubleClick={(e) => {
+                if (onOpenAdmin) {
+                  e.preventDefault();
+                  onOpenAdmin();
+                }
+              }}
+              className="shrink-0 text-lg sm:text-xl font-bold text-heading tracking-tight rounded-md"
+            >
+              Gowtham Raj B
+            </a>
+
+            <nav
+              aria-label="Primary navigation"
+              className="hidden md:flex items-center gap-6 lg:gap-8"
+            >
+              {NAV_LINKS.map((link) => {
+                const isActive = activeId === link.id;
+                return (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    onClick={() => setActiveId(link.id)}
+                    aria-current={isActive ? 'location' : undefined}
+                    className={`nav-link text-sm font-medium py-1 transition-colors ${
+                      isActive
+                        ? 'nav-link-active text-accent'
+                        : 'text-muted hover:text-heading'
+                    }`}
+                  >
+                    {link.name}
+                  </a>
+                );
+              })}
+            </nav>
+
+            <a href="#contact" className="shrink-0 btn-primary px-4 py-2 text-sm">
+              Get in touch
+            </a>
           </div>
-          <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-8">
-              {navLinks.map((link) => (
-                <Link
+
+          {/* Horizontally scrollable sticky nav strip on mobile */}
+          <nav
+            aria-label="Mobile section navigation"
+            className="md:hidden flex items-center gap-5 overflow-x-auto no-scrollbar pb-2.5 pt-1 border-t border-border-subtle"
+          >
+            {NAV_LINKS.map((link) => {
+              const isActive = activeId === link.id;
+              return (
+                <a
                   key={link.name}
-                  to={link.to}
-                  spy={true}
-                  activeClass="text-primary font-bold"
-                  smooth={true}
-                  duration={500}
-                  className="text-text-light hover:text-primary transition-colors cursor-pointer text-sm font-medium"
+                  href={link.href}
+                  onClick={() => setActiveId(link.id)}
+                  aria-current={isActive ? 'location' : undefined}
+                  className={`nav-link shrink-0 whitespace-nowrap text-sm font-medium py-1 transition-colors ${
+                    isActive
+                      ? 'nav-link-active text-accent'
+                      : 'text-muted hover:text-heading'
+                  }`}
                 >
                   {link.name}
-                </Link>
-              ))}
-              <a href="#contact" className="bg-primary/10 text-primary border border-primary/20 hover:bg-primary hover:text-white px-4 py-2 rounded-full text-sm font-medium transition-all duration-300">
-                Hire Me
-              </a>
-            </div>
-          </div>
-          <div className="md:hidden">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="text-text-light hover:text-primary focus:outline-none"
-            >
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div>
+                </a>
+              );
+            })}
+          </nav>
         </div>
-      </div>
-
-      {/* Mobile menu */}
-      {isOpen && (
-        <div className="md:hidden bg-[#0A1128]/95 backdrop-blur-xl absolute top-full left-0 w-full border-b border-white/10 shadow-2xl">
-          <div className="px-4 pt-2 pb-6 space-y-2">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                to={link.to}
-                spy={true}
-                activeClass="text-primary font-bold bg-white/5"
-                smooth={true}
-                duration={500}
-                onClick={() => setIsOpen(false)}
-                className="text-text-light hover:text-primary block px-3 py-2 rounded-md text-base font-medium cursor-pointer"
-              >
-                {link.name}
-              </Link>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Scroll Progress Bar */}
-      <div 
-        className="absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-primary to-blue-500"
-        style={{ width: `${scrollProgress * 100}%`, transition: 'width 0.1s' }}
-      ></div>
-    </nav>
+      </header>
+    </>
   );
 };
 

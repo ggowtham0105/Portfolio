@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://portfolio-gowtham-eta.vercel.app/sitemap.xml
+

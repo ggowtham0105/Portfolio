@@ -1,41 +1,346 @@
 @import "tailwindcss";
 
-@theme {
-  --color-primary: #38BDF8;
-  --color-accent: #8B5CF6;
-  --color-secondary: #1E293B;
-  --color-bg-dark: #0F172A;
-  --color-text-light: #E2E8F0;
-  
-  --font-poppins: "Poppins", sans-serif;
-  --font-inter: "Inter", sans-serif;
-  --font-space: "Space Grotesk", sans-serif;
+:root {
+  color-scheme: dark light;
+  --bg: #141210;
+  --surface: #1E1B18;
+  --border: #2E2A26;
+  --text: #F3EFE8;
+  --muted: #A39E93;
+  --accent: #E2704A;
+  --accent-hover: #EE8661;
+  --photo-bg: #E8DCCB;
+  --shadow-subtle: 0 2px 10px rgba(0, 0, 0, 0.28);
+  --ease-calm: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #FAF7F2;
+    --surface: #FFFFFF;
+    --border: #E7E0D6;
+    --text: #1C1917;
+    --muted: #6B645B;
+    --accent: #B4431F;
+    --accent-hover: #963415;
+    --photo-bg: #E8DCCB;
+    --shadow-subtle: 0 2px 8px rgba(28, 25, 23, 0.06);
+  }
+}
+
+@theme inline {
+  --color-canvas: var(--bg);
+  --color-surface: var(--surface);
+  --color-border-subtle: var(--border);
+  --color-heading: var(--text);
+  --color-body: var(--text);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-on-accent: var(--bg);
+
+  --font-sans: "Inter", "DM Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
   }
-  
+
   body {
-    @apply bg-bg-dark text-text-light font-inter antialiased selection:bg-primary/30 selection:text-primary;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-space font-bold tracking-tight;
+    color: var(--text);
+    font-family: var(--font-sans);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+  }
+
+  ::selection {
+    background-color: var(--accent);
+    color: var(--bg);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+}
+
+@keyframes hero-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-photo-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@layer components {
+  .surface-card {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: var(--shadow-subtle);
+    transition: transform 200ms var(--ease-calm), border-color 200ms var(--ease-calm);
+  }
+
+  .surface-card > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .surface-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent);
+  }
+
+  .btn-primary {
+    background-color: var(--accent);
+    color: var(--bg);
+    border-radius: 8px;
+    font-weight: 600;
+    translate: var(--mx, 0px) var(--my, 0px);
+    transition:
+      background-color 200ms var(--ease-calm),
+      transform 150ms var(--ease-calm),
+      translate 220ms var(--ease-calm);
+  }
+
+  .btn-primary:hover {
+    background-color: var(--accent-hover);
+  }
+
+  .btn-primary:active {
+    transform: scale(0.97);
+  }
+
+  .btn-secondary {
+    background-color: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-weight: 500;
+    translate: var(--mx, 0px) var(--my, 0px);
+    transition:
+      border-color 200ms var(--ease-calm),
+      color 200ms var(--ease-calm),
+      transform 150ms var(--ease-calm),
+      translate 220ms var(--ease-calm);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--accent);
+  }
+
+  .btn-secondary:active {
+    transform: scale(0.97);
+  }
+
+  .btn-arrow {
+    transition: transform 200ms var(--ease-calm);
+  }
+
+  .btn-primary:hover .btn-arrow,
+  .btn-secondary:hover .btn-arrow {
+    transform: translateX(4px);
+  }
+
+  .nav-link {
+    position: relative;
+  }
+
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -2px;
+    height: 2px;
+    background-color: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 220ms var(--ease-calm);
+  }
+
+  .nav-link:hover::after,
+  .nav-link-active::after {
+    transform: scaleX(1);
+  }
+
+  .hero-photo-parallax {
+    translate: var(--px, 0px) var(--py, 0px);
+    transition: translate 400ms ease;
+  }
+
+  /* JS-gated initial states so content stays visible if JS fails */
+  .js-enabled .hero-stagger {
+    opacity: 0;
+    animation: hero-fade-up 480ms var(--ease-calm) both;
+    animation-delay: var(--hero-delay, 0ms);
+  }
+
+  .js-enabled .hero-photo-in {
+    opacity: 0;
+    animation: hero-photo-in 600ms var(--ease-calm) both;
+  }
+
+  .js-enabled .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 500ms var(--ease-calm), transform 500ms var(--ease-calm);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  .js-enabled .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .heading-accent-bar {
+    width: 40px;
+    height: 3px;
+    background-color: var(--accent);
+    margin-inline: auto;
+  }
+
+  .js-enabled .reveal-bar {
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 450ms var(--ease-calm);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  .js-enabled .reveal-bar.is-visible {
+    transform: scaleX(1);
+  }
+}
+
+/* Fine-pointer cursor, spotlight, and custom cursor elements */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  html.cursor-enhanced,
+  html.cursor-enhanced body,
+  html.cursor-enhanced a,
+  html.cursor-enhanced button {
+    cursor: none;
+  }
+
+  .surface-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0;
+    background: radial-gradient(
+      240px circle at var(--sx, 50%) var(--sy, 50%),
+      color-mix(in srgb, var(--accent) 12%, transparent),
+      transparent 70%
+    );
+    transition: opacity 250ms var(--ease-calm);
+  }
+
+  .surface-card:hover::before {
+    opacity: 1;
+  }
+
+  .custom-cursor-dot {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 7px;
+    height: 7px;
+    border-radius: 9999px;
+    background-color: var(--accent);
+    pointer-events: none;
+    z-index: 9999;
+    transition: opacity 180ms var(--ease-calm);
+  }
+
+  .custom-cursor-ring-wrap {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 36px;
+    height: 36px;
+    pointer-events: none;
+    z-index: 9998;
+    transition: opacity 180ms var(--ease-calm);
+  }
+
+  .custom-cursor-ring {
+    width: 100%;
+    height: 100%;
+    border-radius: 9999px;
+    border: 1.5px solid var(--accent);
+    background-color: transparent;
+    transition:
+      transform 250ms var(--ease-calm),
+      background-color 250ms var(--ease-calm);
+  }
+
+  .custom-cursor-ring.is-hover {
+    transform: scale(1.7);
+    background-color: color-mix(in srgb, var(--accent) 14%, transparent);
+  }
+
+  .custom-cursor-ring.is-down {
+    transform: scale(0.8);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .js-enabled .hero-stagger,
+  .js-enabled .hero-photo-in,
+  .js-enabled .reveal,
+  .js-enabled .reveal-bar {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
 
 @layer utilities {
-  .glass {
-    @apply bg-white/5 backdrop-blur-md border border-white/10;
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
   }
-  
-  .glass-card {
-    @apply bg-secondary/50 backdrop-blur-sm border border-white/5 rounded-2xl hover:border-primary/30 transition-all duration-300;
-  }
-  
-  .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent;
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 }

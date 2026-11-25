@@ -1,78 +1,114 @@
-import { motion } from 'framer-motion';
-import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
+import { FaGithub, FaExternalLinkAlt, FaCode } from 'react-icons/fa';
+import { usePortfolio } from '../context/portfolioContext';
+import Reveal from './Reveal';
 
 const Projects = () => {
-  const projects = [
-    {
-      title: "Resume-to-Portfolio Generator",
-      description: "Transform your resume into a modern, responsive portfolio website in seconds. Simply upload your resume, and the AI automatically extracts your skills, experience, education, and projects to generate a professional portfolio with a clean design. Customize your content, preview changes in real time, and deploy your portfolio instantly with a shareable link—no coding or design experience required. Built for students, developers, freelancers, and job seekers who want to establish a strong online presence quickly and efficiently.",
-      image: "/resume-to-portfolio.png",
-      tech: ["AI / LLM", "Cloudflare Workers", "React", "Tailwind CSS", "Instant Deployment"],
-      github: "https://github.com/ggowtham0105",
-      demo: "https://resume-to-portfolio.gauthamisnot08.workers.dev/",
-      featured: true
-    }
-  ];
+  const { projects } = usePortfolio();
 
   return (
-    <section id="projects" className="py-20 relative bg-secondary/10">
+    <section
+      id="projects"
+      aria-labelledby="projects-heading"
+      className="py-16 md:py-20 border-t border-border-subtle"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Featured <span className="text-primary">Project</span></h2>
-          <div className="w-20 h-1 bg-primary mx-auto rounded-full"></div>
+        <div className="text-center mb-12">
+          <Reveal>
+            <h2 id="projects-heading" className="text-3xl md:text-4xl font-bold text-heading mb-3">
+              Featured Projects
+            </h2>
+          </Reveal>
+          <Reveal variant="bar" delay={80}>
+            <div className="heading-accent-bar" aria-hidden="true" />
+          </Reveal>
         </div>
 
-        <div className={`grid grid-cols-1 ${projects.length === 1 ? 'max-w-4xl mx-auto' : 'lg:grid-cols-2'} gap-10`}>
-          {projects.map((project, idx) => (
-            <motion.div 
-              key={idx}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: idx * 0.2 }}
-              viewport={{ once: true, margin: "-100px" }}
-              className={`glass-card overflow-hidden group flex flex-col ${project.featured ? 'ring-2 ring-primary/50' : ''}`}
-            >
-              <div className="relative h-72 md:h-80 overflow-hidden">
-                <div className="absolute inset-0 bg-primary/20 mix-blend-multiply z-10 group-hover:opacity-0 transition-opacity duration-500"></div>
-                <img 
-                  src={project.image} 
-                  alt={project.title} 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                />
-                {project.featured && (
-                  <div className="absolute top-4 right-4 z-20 bg-primary text-bg-dark text-xs font-bold px-3 py-1 rounded-full shadow-lg">
-                    Featured Project
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+          {projects.map((project, idx) => {
+            const bullets =
+              Array.isArray(project.bullets) && project.bullets.length > 0
+                ? project.bullets
+                : project.description
+                  ? [project.description]
+                  : [];
+
+            return (
+              <Reveal key={project.id || project.title} delay={idx * 70} className="h-full">
+                <article className="surface-card overflow-hidden flex flex-col h-full">
+                  <div className="relative h-48 sm:h-56 overflow-hidden bg-canvas border-b border-border-subtle flex items-center justify-center">
+                    {project.architecture_image ? (
+                      <img
+                        src={project.architecture_image}
+                        alt={project.architecture_alt || project.title}
+                        loading="lazy"
+                        decoding="async"
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="flex flex-col items-center justify-center gap-2 px-6 text-center text-muted">
+                        <FaCode className="text-2xl text-accent" aria-hidden="true" />
+                        <span className="text-xs font-medium tracking-wide uppercase">
+                          Project Preview
+                        </span>
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
-              
-              <div className="p-8 flex-1 flex flex-col">
-                <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 group-hover:text-primary transition-colors">{project.title}</h3>
-                <p className="text-text-light/80 text-sm md:text-base mb-6 leading-relaxed flex-1">
-                  {project.description}
-                </p>
-                
-                <div className="flex flex-wrap gap-2 mb-8">
-                  {project.tech.map((tech, tIdx) => (
-                    <span key={tIdx} className="text-xs font-medium text-accent bg-accent/10 px-3 py-1 rounded-full border border-accent/20">
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-                
-                <div className="flex items-center gap-6 mt-auto pt-4 border-t border-white/10">
-                  <a href={project.github} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-sm font-medium hover:text-primary transition-colors">
-                    <FaGithub className="text-lg" /> Code / Repository
-                  </a>
-                  {project.demo !== "#" && (
-                    <a href={project.demo} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-sm font-semibold text-primary hover:underline transition-all">
-                      <FaExternalLinkAlt className="text-sm" /> Live Demo
-                    </a>
-                  )}
-                </div>
-              </div>
-            </motion.div>
-          ))}
+
+                  <div className="p-6 sm:p-8 flex-1 flex flex-col">
+                    <h3 className="text-xl sm:text-2xl font-bold text-heading mb-4">
+                      {project.title}
+                    </h3>
+
+                    {bullets.length > 0 && (
+                      <ul className="list-disc list-inside text-muted text-sm sm:text-base mb-6 space-y-2 leading-relaxed flex-1">
+                        {bullets.map((bullet) => (
+                          <li key={bullet}>{bullet}</li>
+                        ))}
+                      </ul>
+                    )}
+
+                    {Array.isArray(project.tech) && project.tech.length > 0 && (
+                      <ul className="flex flex-wrap gap-2 mb-6" aria-label="Technologies used">
+                        {project.tech.map((tech) => (
+                          <li
+                            key={tech}
+                            className="text-xs font-medium text-heading bg-canvas px-2.5 py-1 rounded-lg border border-border-subtle"
+                          >
+                            {tech}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+
+                    <div className="flex flex-wrap items-center gap-3 pt-4 border-t border-border-subtle">
+                      {project.demo && project.demo !== '#' && (
+                        <a
+                          href={project.demo}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="btn-primary inline-flex items-center gap-2 px-4 py-2 text-sm"
+                        >
+                          <span>Live demo</span>
+                          <FaExternalLinkAlt className="text-xs btn-arrow" aria-hidden="true" />
+                        </a>
+                      )}
+                      {project.github && (
+                        <a
+                          href={project.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="btn-secondary inline-flex items-center gap-2 px-4 py-2 text-sm"
+                        >
+                          <FaGithub className="text-base text-muted" aria-hidden="true" />
+                          <span>GitHub</span>
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </article>
+              </Reveal>
+            );
+          })}
         </div>
       </div>
     </section>
